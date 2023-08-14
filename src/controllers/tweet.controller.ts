@@ -11,7 +11,7 @@ async function get(req, res, next) {
 
 async function create(req, res, next) {
   try {
-    res.json(await tweetService.create(req.body));
+    res.json(await tweetService.create(req.body.text));
   } catch (err) {
     console.error(`Error while creating feed`, err.message);
     next(err);

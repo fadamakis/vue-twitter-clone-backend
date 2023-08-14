@@ -1,30 +1,23 @@
-import mockTweets from "../mocks/tweets.json";
+import Tweet from "../models/tweet.model";
 
 async function getFeed() {
-  return mockTweets;
+  return await Tweet.find({});
 }
 
 async function get(id) {
-  return mockTweets.find((tweet) => tweet.id == id);
+  return Tweet.find({ _id: id });
 }
 
 async function create(text) {
-  const tweet = {
-    id: mockTweets.length + 1,
-    text,
-    createdAt: new Date(),
-  };
-
-  mockTweets.push(tweet);
+  return new Tweet({ text }).save();
 }
 
-async function update(id, newTweet) {
-  const tweet = mockTweets.find((tweet) => tweet.id == id);
-  tweet.text = newTweet;
+async function update(id, text) {
+  return Tweet.findByIdAndDelete(id, { text });
 }
 
 async function remove(id) {
-  return mockTweets.filter((tweet) => tweet.id == id);
+  return Tweet.findByIdAndDelete(id);
 }
 
 export { get, create, update, remove, getFeed };
