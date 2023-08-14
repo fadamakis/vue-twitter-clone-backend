@@ -1,4 +1,4 @@
-import Tweet from "../models/tweet.model";
+import Tweet from "./tweet.model";
 
 async function getFeed() {
   return await Tweet.find({});

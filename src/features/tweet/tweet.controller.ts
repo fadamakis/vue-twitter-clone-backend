@@ -1,4 +1,4 @@
-import * as tweetService from "../services/tweet.service";
+import * as tweetService from "./tweet.service";
 import { Request, Response, NextFunction } from "express";
 
 async function get(req: Request, res: Response, next: NextFunction) {
