@@ -1,6 +1,7 @@
 import * as tweetService from "../services/tweet.service";
+import { Request, Response, NextFunction } from "express";
 
-async function get(req, res, next) {
+async function get(req: Request, res: Response, next: NextFunction) {
   try {
     res.json(await tweetService.get(req.params.id));
   } catch (err) {
@@ -9,7 +10,7 @@ async function get(req, res, next) {
   }
 }
 
-async function create(req, res, next) {
+async function create(req: Request, res: Response, next: NextFunction) {
   try {
     res.json(await tweetService.create(req.body.text));
   } catch (err) {
@@ -18,7 +19,7 @@ async function create(req, res, next) {
   }
 }
 
-async function update(req, res, next) {
+async function update(req: Request, res: Response, next: NextFunction) {
   try {
     res.json(await tweetService.update(req.params.id, req.body));
   } catch (err) {
@@ -27,7 +28,7 @@ async function update(req, res, next) {
   }
 }
 
-async function remove(req, res, next) {
+async function remove(req: Request, res: Response, next: NextFunction) {
   try {
     res.json(await tweetService.remove(req.params.id));
   } catch (err) {
@@ -36,7 +37,7 @@ async function remove(req, res, next) {
   }
 }
 
-async function getFeed(_, res, next) {
+async function getFeed(_: Request, res: Response, next: NextFunction) {
   try {
     res.json(await tweetService.getFeed());
   } catch (err) {
