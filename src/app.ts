@@ -1,11 +1,13 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, Request, Response } from "express";
+
 const app: Express = express();
-const port = 3000
 
-app.get('/', (_: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
+import tweetRoute from "./routes/tweet.route";
+
+app.use("/tweet", tweetRoute);
+
+app.get("/", (_: Request, res: Response) => {
+  res.send("Express + TypeScript Server!");
 });
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+export default app;
