@@ -1,9 +1,11 @@
 import express, { Express, Request, Response } from "express";
-import connectDB from "./config/db";
 import bodyParser from "body-parser";
+import cors from 'cors';
+import connectDB from "./config/db";
 
 const app: Express = express();
 
+app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
