@@ -1,7 +1,7 @@
 import Tweet from "./tweet.model";
 
 async function getFeed() {
-  return await Tweet.find({});
+  return await Tweet.find({}).populate("owner");
 }
 
 async function get(id) {

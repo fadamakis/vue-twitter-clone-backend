@@ -3,7 +3,7 @@ import * as tweetController from './tweet.controller';
 
 const router = express.Router();
 
-router.get('/getFeed', tweetController.getFeed);
+router.get('/', tweetController.getFeed);
 
 router.get('/:id', tweetController.get);
 

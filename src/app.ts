@@ -14,8 +14,8 @@ connectDB();
 import { tweet } from "./features/tweet";
 import { profile } from "./features/profile";
 
-app.use("/tweet", tweet);
-app.use("/profile", profile);
+app.use("/tweets", tweet);
+app.use("/users", profile);
 
 app.get("/", (_: Request, res: Response) => {
   res.send("Express + TypeScript Server!");
