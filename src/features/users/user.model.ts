@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ProfileSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -11,4 +11,4 @@ const ProfileSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model("Profile", ProfileSchema);
+export default mongoose.model("User", UserSchema);

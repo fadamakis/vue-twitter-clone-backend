@@ -8,7 +8,7 @@ const TweetSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Profile'
+    ref: 'User'
   }
 });
 

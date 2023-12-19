@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { faker } from '@faker-js/faker';
-import Profile from "../../features/profile/profile.model";
-import Tweet from "../../features/tweet/tweet.model";
+import User from "../../features/users/user.model";
+import Tweet from "../../features/tweets/tweet.model";
 import connectDB from "../db";
 
 connectDB()
@@ -17,7 +17,7 @@ async function seedDatabase() {
   const TWEETS_PER_USER = 5
 
   for (let i = 0; i < USERS_TO_CREATE; i++) {
-    const user = await new Profile({
+    const user = await new User({
       name: faker.person.fullName(),
       username: faker.internet.displayName()
     }).save()

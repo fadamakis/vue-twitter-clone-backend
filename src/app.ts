@@ -11,11 +11,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 connectDB();
 
-import { tweet } from "./features/tweet";
-import { profile } from "./features/profile";
+import { tweets } from "./features/tweets";
+import { users } from "./features/users";
 
-app.use("/tweets", tweet);
-app.use("/users", profile);
+app.use("/tweets", tweets);
+app.use("/users", users);
 
 app.get("/", (_: Request, res: Response) => {
   res.send("Express + TypeScript Server!");
