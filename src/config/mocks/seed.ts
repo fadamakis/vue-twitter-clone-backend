@@ -13,18 +13,25 @@ clearDatabase().then(seedDatabase).then(() => {
 
 async function seedDatabase() {
 
-  const USERS_TO_CREATE = 3
+  const USERS_TO_CREATE = 5
   const TWEETS_PER_USER = 5
 
   for (let i = 0; i < USERS_TO_CREATE; i++) {
     const user = await new User({
       name: faker.person.fullName(),
-      username: faker.internet.displayName()
+      username: faker.internet.displayName(),
+      avatar: faker.internet.avatar(),
+      banner: faker.image.url(),
+      bio: faker.person.bio(),
+      location: faker.location.country(),
+      website: faker.internet.domainName(),
     }).save()
 
     for (let i = 0; i < TWEETS_PER_USER; i++) {
+      const text = faker.lorem.sentences({ min: 1, max: 4 })
+      const hashtags = faker.lorem.words({ min: 1, max: 3 }).concat(` trend-${faker.number.int(5)}`).split(' ').map(word => ` #${word}`)
       await new Tweet({
-        text: faker.lorem.text(),
+        body: text + hashtags,
         owner: user._id
       }).save()
     }

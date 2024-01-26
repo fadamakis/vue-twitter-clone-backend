@@ -4,20 +4,47 @@ async function getFeed() {
   return await Tweet.find({}).populate("owner");
 }
 
-async function get(id) {
+async function search(term) {
+  return await Tweet.find({ $text: { $search: term } }).populate("owner");
+}
+
+async function getTrends() {
+  return await Tweet.aggregate([
+    { $unwind: "$hashtags" },
+    { $group: { _id: "$hashtags", count: { $sum: 1 } } },
+    { $sort: { count: -1 } },
+    {
+      $group: {
+        _id: null,
+        trends: { $push: { hashtag: "$_id", count: "$count" } },
+      },
+    },
+    { $project: { _id: 0, trends: 1 } },
+  ]);
+}
+
+async function getOne(id) {
   return Tweet.find({ _id: id });
 }
 
-async function create(text) {
+async function createOne(text) {
   return new Tweet({ text }).save();
 }
 
-async function update(id, text) {
+async function updateOne(id, text) {
   return Tweet.findByIdAndDelete(id, { text });
 }
 
-async function remove(id) {
+async function removeOne(id) {
   return Tweet.findByIdAndDelete(id);
 }
 
-export { get, create, update, remove, getFeed };
+export default {
+  search,
+  getTrends,
+  getOne,
+  createOne,
+  updateOne,
+  removeOne,
+  getFeed,
+};

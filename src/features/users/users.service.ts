@@ -1,19 +1,23 @@
 import User from "./user.model";
 
-async function get(id) {
+async function getAll() {
+  return User.find();
+}
+
+async function getOne(id) {
   return User.find({ _id: id });
 }
 
-async function create(data) {
+async function createOne(data) {
   return new User(data).save();
 }
 
-async function update(id, data) {
+async function updateOne(id, data) {
   return User.findByIdAndDelete(id, data);
 }
 
-async function remove(id) {
+async function removeOne(id) {
   return User.findByIdAndDelete(id);
 }
 
-export { get, create, update, remove };
+export default { getAll, getOne, createOne, updateOne, removeOne };

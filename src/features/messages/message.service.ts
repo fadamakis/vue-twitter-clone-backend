@@ -1,19 +1,19 @@
 import message from "./message.model";
 
-async function get(id) {
+async function getOne(id) {
   return message.find({ _id: id });
 }
 
-async function create(data) {
+async function createOne(data) {
   return new message(data).save();
 }
 
-async function update(id, data) {
+async function updateOne(id, data) {
   return message.findByIdAndDelete(id, data);
 }
 
-async function remove(id) {
+async function removeOne(id) {
   return message.findByIdAndDelete(id);
 }
 
-export { get, create, update, remove };
+export default { getOne, createOne, updateOne, removeOne };

@@ -1,14 +1,14 @@
 import express from 'express';
-import * as messageController from './message.controller';
+import messageController from './message.controller';
 
 const router = express.Router();
 
-router.get('/:id', messageController.get);
+router.get('/:id', messageController.getOne);
 
-router.post('/', messageController.create);
+router.post('/', messageController.createOne);
 
-router.put('/:id', messageController.update);
+router.put('/:id', messageController.updateOne);
 
-router.delete('/:id', messageController.remove);
+router.delete('/:id', messageController.removeOne);
 
 export default router;

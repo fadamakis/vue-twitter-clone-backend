@@ -1,15 +1,20 @@
 import express from 'express';
-import * as tweetsController from './tweets.controller';
+import tweetsController from './tweets.controller';
 
 const router = express.Router();
 
+
+router.get('/search/:term', tweetsController.search);
+
+router.get('/trends', tweetsController.trends);
+
 router.get('/', tweetsController.getFeed);
 
-router.get('/:id', tweetsController.get);
+router.get('/:id', tweetsController.getOne);
 
-router.post('/', tweetsController.create);
+router.post('/', tweetsController.createOne);
 
-router.put('/:id', tweetsController.update);
+router.put('/:id', tweetsController.updateOne);
 
 router.delete('/:id', tweetsController.remove);
 

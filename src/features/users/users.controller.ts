@@ -1,40 +1,49 @@
-import * as usersService from "./users.service";
+import usersService from "./users.service";
 import { Request, Response, NextFunction } from "express";
 
-async function get(req: Request, res: Response, next: NextFunction) {
+async function getAll(_: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.get(req.params.id));
+    res.json(await usersService.getAll());
+  } catch (err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+}
+
+async function getOne(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.json(await usersService.getOne(req.params.id));
   } catch (err) {
     console.error(`Error while getting user`, err.message);
     next(err);
   }
 }
 
-async function create(req: Request, res: Response, next: NextFunction) {
+async function createOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.create(req.body));
+    res.json(await usersService.createOne(req.body));
   } catch (err) {
     console.error(`Error while creating user`, err.message);
     next(err);
   }
 }
 
-async function update(req: Request, res: Response, next: NextFunction) {
+async function updateOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.update(req.params.id, req.body));
+    res.json(await usersService.updateOne(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating user`, err.message);
     next(err);
   }
 }
 
-async function remove(req: Request, res: Response, next: NextFunction) {
+async function removeOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.remove(req.params.id));
+    res.json(await usersService.removeOne(req.params.id));
   } catch (err) {
     console.error(`Error while deleting user`, err.message);
     next(err);
   }
 }
 
-export { get, create, update, remove };
+export default { getAll, getOne, createOne, updateOne, removeOne };

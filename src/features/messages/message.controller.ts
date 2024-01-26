@@ -1,40 +1,40 @@
-import * as messageService from "./message.service";
+import messageService from "./message.service";
 import { Request, Response, NextFunction } from "express";
 
-async function get(req: Request, res: Response, next: NextFunction) {
+async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await messageService.get(req.params.id));
+    res.json(await messageService.getOne(req.params.id));
   } catch (err) {
     console.error(`Error while getting message`, err.message);
     next(err);
   }
 }
 
-async function create(req: Request, res: Response, next: NextFunction) {
+async function createOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await messageService.create(req.body));
+    res.json(await messageService.createOne(req.body));
   } catch (err) {
     console.error(`Error while creating message`, err.message);
     next(err);
   }
 }
 
-async function update(req: Request, res: Response, next: NextFunction) {
+async function updateOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await messageService.update(req.params.id, req.body));
+    res.json(await messageService.updateOne(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating message`, err.message);
     next(err);
   }
 }
 
-async function remove(req: Request, res: Response, next: NextFunction) {
+async function removeOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await messageService.remove(req.params.id));
+    res.json(await messageService.removeOne(req.params.id));
   } catch (err) {
     console.error(`Error while deleting message`, err.message);
     next(err);
   }
 }
 
-export { get, create, update, remove };
+export default { getOne, createOne, updateOne, removeOne };
