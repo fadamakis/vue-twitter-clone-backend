@@ -13,6 +13,7 @@ async function getTrends() {
     { $unwind: "$hashtags" },
     { $group: { _id: "$hashtags", count: { $sum: 1 } } },
     { $sort: { count: -1 } },
+    { $limit: 6 },
     {
       $group: {
         _id: null,
@@ -20,7 +21,7 @@ async function getTrends() {
       },
     },
     { $project: { _id: 0, trends: 1 } },
-  ]);
+  ]).then(results => results[0]);
 }
 
 async function getOne(id) {
