@@ -12,7 +12,7 @@ async function getAll(_: Request, res: Response, next: NextFunction) {
 
 async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.getOne(req.params.id));
+    res.json(await usersService.getOne(req.params.id.substring(1)));
   } catch (err) {
     console.error(`Error while getting user`, err.message);
     next(err);
@@ -37,6 +37,16 @@ async function updateOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function followOne(req: Request, res: Response, next: NextFunction) {
+  try {
+    res.json(await usersService.followOne(req.params.id));
+  } catch (err) {
+    console.error(`Error while updating user`, err.message);
+    next(err);
+  }
+}
+
+
 async function removeOne(req: Request, res: Response, next: NextFunction) {
   try {
     res.json(await usersService.removeOne(req.params.id));
@@ -46,4 +56,4 @@ async function removeOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { getAll, getOne, createOne, updateOne, removeOne };
+export default { getAll, getOne, createOne, updateOne, followOne, removeOne };

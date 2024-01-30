@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 import User from "../../features/users/user.model";
 import Tweet from "../../features/tweets/tweet.model";
 import connectDB from "../db";
 
-connectDB()
+connectDB();
 
-clearDatabase().then(seedDatabase).then(() => {
-  console.log('Seeded Succesfully!')
-  process.exit();
-})
+clearDatabase()
+  .then(seedDatabase)
+  .then(() => {
+    console.log("Seeded Succesfully!");
+    process.exit();
+  });
 
 async function seedDatabase() {
-
-  const USERS_TO_CREATE = 5
-  const TWEETS_PER_USER = 5
+  const USERS_TO_CREATE = 16;
 
   for (let i = 0; i < USERS_TO_CREATE; i++) {
     const user = await new User({
@@ -25,19 +25,24 @@ async function seedDatabase() {
       bio: faker.person.bio(),
       location: faker.location.country(),
       website: faker.internet.domainName(),
-    }).save()
+    }).save();
+
+    const TWEETS_PER_USER = faker.number.int(2);
 
     for (let i = 0; i < TWEETS_PER_USER; i++) {
-      const text = faker.lorem.sentences({ min: 1, max: 4 })
-      const hashtags = faker.lorem.words({ min: 1, max: 3 }).concat(` trend-${faker.number.int(5)}`).split(' ').map(word => ` #${word}`)
+      const text = faker.lorem.sentences({ min: 1, max: 4 });
+      const hashtags = faker.lorem
+        .words({ min: 1, max: 3 })
+        .concat(` trend-${faker.number.int(5)}`)
+        .split(" ")
+        .map((word) => ` #${word}`);
       await new Tweet({
         body: text + hashtags,
-        owner: user._id
-      }).save()
+        owner: user._id,
+      }).save();
     }
   }
 }
-
 
 async function clearDatabase() {
   const collections = await mongoose.connection.collections;

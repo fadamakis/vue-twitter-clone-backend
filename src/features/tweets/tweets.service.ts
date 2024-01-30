@@ -25,7 +25,7 @@ async function getTrends() {
 }
 
 async function getOne(id) {
-  return Tweet.find({ _id: id });
+  return Tweet.findOne({ _id: id }).populate("owner");
 }
 
 async function createOne(text) {

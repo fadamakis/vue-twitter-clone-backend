@@ -11,6 +11,8 @@ router.post('/', usersController.createOne);
 
 router.put('/:id', usersController.updateOne);
 
+router.put('/follow/:id', usersController.followOne);
+
 router.delete('/:id', usersController.removeOne);
 
 export default router;

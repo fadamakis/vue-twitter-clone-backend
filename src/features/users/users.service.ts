@@ -4,8 +4,25 @@ async function getAll() {
   return User.find();
 }
 
-async function getOne(id) {
-  return User.find({ _id: id });
+async function getOne(username) {
+  return User.aggregate([
+    {
+      $match: {
+        username,
+      },
+    },
+    {
+      $lookup: {
+        from: "tweets",
+        localField: "_id",
+        foreignField: "owner",
+        as: "tweets",
+      },
+    },
+    {
+      $limit: 1,
+    },
+  ]).then((results) => results[0]);
 }
 
 async function createOne(data) {
@@ -16,8 +33,12 @@ async function updateOne(id, data) {
   return User.findByIdAndDelete(id, data);
 }
 
+async function followOne(id) {
+  // TODO
+}
+
 async function removeOne(id) {
   return User.findByIdAndDelete(id);
 }
 
-export default { getAll, getOne, createOne, updateOne, removeOne };
+export default { getAll, getOne, createOne, updateOne, followOne, removeOne };
