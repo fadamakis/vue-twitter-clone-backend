@@ -1,3 +1,4 @@
+import { log } from "console";
 import tweetsService from "./tweets.service";
 import { Request, Response, NextFunction } from "express";
 
@@ -12,7 +13,8 @@ async function search(req: Request, res: Response, next: NextFunction) {
 
 async function trends(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await tweetsService.getTrends());
+    const limit = parseInt(req.query.limit as string);
+    res.json(await tweetsService.getTrends(limit));
   } catch (err) {
     console.error(`Error while getting trends`, err.message);
     next(err);
@@ -64,4 +66,12 @@ async function getFeed(_: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { search, trends, getOne, createOne, updateOne, remove, getFeed };
+export default {
+  search,
+  trends,
+  getOne,
+  createOne,
+  updateOne,
+  remove,
+  getFeed,
+};

@@ -8,12 +8,12 @@ async function search(term) {
   return await Tweet.find({ $text: { $search: term } }).populate("owner");
 }
 
-async function getTrends() {
+async function getTrends(limit) {
   return await Tweet.aggregate([
     { $unwind: "$hashtags" },
     { $group: { _id: "$hashtags", count: { $sum: 1 } } },
     { $sort: { count: -1 } },
-    { $limit: 6 },
+    { $limit: limit || 10 },
     {
       $group: {
         _id: null,
@@ -21,7 +21,7 @@ async function getTrends() {
       },
     },
     { $project: { _id: 0, trends: 1 } },
-  ]).then(results => results[0]);
+  ]).then((results) => results[0]);
 }
 
 async function getOne(id) {
