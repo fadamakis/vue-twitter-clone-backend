@@ -1,4 +1,3 @@
-import { log } from "console";
 import tweetsService from "./tweets.service";
 import { Request, Response, NextFunction } from "express";
 

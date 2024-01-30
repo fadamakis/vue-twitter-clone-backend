@@ -52,7 +52,8 @@ async function friendSuggestions(
   next: NextFunction
 ) {
   try {
-    res.json(await usersService.getFriendSuggestions());
+    const limit = parseInt(req.query.limit as string);
+    res.json(await usersService.getFriendSuggestions(limit));
   } catch (err) {
     console.error(`Error while getting users`, err.message);
     next(err);

@@ -33,9 +33,9 @@ async function updateOne(id, data) {
   return User.findByIdAndDelete(id, data);
 }
 
-async function getFriendSuggestions() {
+async function getFriendSuggestions(limit = 5) {
   // TODO exclude myself and already following
-  return User.find().limit(5);
+  return User.find().limit(limit);
 }
 
 async function followOne(id) {
