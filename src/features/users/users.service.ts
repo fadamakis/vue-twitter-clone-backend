@@ -33,6 +33,11 @@ async function updateOne(id, data) {
   return User.findByIdAndDelete(id, data);
 }
 
+async function getFriendSuggestions() {
+  // TODO exclude myself and already following
+  return User.find().limit(5);
+}
+
 async function followOne(id) {
   // TODO
 }
@@ -41,4 +46,12 @@ async function removeOne(id) {
   return User.findByIdAndDelete(id);
 }
 
-export default { getAll, getOne, createOne, updateOne, followOne, removeOne };
+export default {
+  getAll,
+  getOne,
+  createOne,
+  updateOne,
+  getFriendSuggestions,
+  followOne,
+  removeOne,
+};

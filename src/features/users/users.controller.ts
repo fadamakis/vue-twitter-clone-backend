@@ -46,6 +46,18 @@ async function followOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function friendSuggestions(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    res.json(await usersService.getFriendSuggestions());
+  } catch (err) {
+    console.error(`Error while getting users`, err.message);
+    next(err);
+  }
+}
 
 async function removeOne(req: Request, res: Response, next: NextFunction) {
   try {
@@ -56,4 +68,12 @@ async function removeOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-export default { getAll, getOne, createOne, updateOne, followOne, removeOne };
+export default {
+  getAll,
+  getOne,
+  createOne,
+  updateOne,
+  friendSuggestions,
+  followOne,
+  removeOne,
+};
