@@ -40,8 +40,27 @@ async function getFriendSuggestions(limit = 5) {
   return User.find().limit(limit);
 }
 
-async function followOne(id) {
-  // TODO
+async function followOne(followerId, followingId) {
+  await User.findByIdAndUpdate(followerId, {
+    $addToSet: { following: followingId },
+  });
+
+  await User.findByIdAndUpdate(followingId, {
+    $addToSet: { followers: followerId },
+  });
+  return { success: true };
+}
+
+async function unFollowOne(followerId, followingId) {
+  await User.findByIdAndUpdate(followerId, {
+    $pull: { following: followingId },
+  });
+
+  await User.findByIdAndUpdate(followingId, {
+    $pull: { followers: followerId },
+  });
+
+  return { success: true };
 }
 
 async function removeOne(id) {
@@ -95,6 +114,7 @@ export default {
   updateOne,
   getFriendSuggestions,
   followOne,
+  unFollowOne,
   removeOne,
   register,
   login,

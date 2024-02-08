@@ -29,8 +29,21 @@ async function updateOne(req: Request, res: Response, next: NextFunction) {
 }
 
 async function followOne(req: Request, res: Response, next: NextFunction) {
+  const { userId } = res.locals;
+
   try {
-    res.json(await usersService.followOne(req.params.id));
+    res.json(await usersService.followOne(userId, req.params.id));
+  } catch (err) {
+    console.error(`Error while updating user`, err.message);
+    next(err);
+  }
+}
+
+async function unFollowOne(req: Request, res: Response, next: NextFunction) {
+  const { userId } = res.locals;
+
+  try {
+    res.json(await usersService.unFollowOne(userId, req.params.id));
   } catch (err) {
     console.error(`Error while updating user`, err.message);
     next(err);
@@ -110,6 +123,7 @@ export default {
   updateOne,
   friendSuggestions,
   followOne,
+  unFollowOne,
   removeOne,
   register,
   login,
