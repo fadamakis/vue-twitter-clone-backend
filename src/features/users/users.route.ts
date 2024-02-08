@@ -7,9 +7,13 @@ router.get("/", usersController.getAll);
 
 router.get("/friend-suggestions", usersController.friendSuggestions);
 
-router.get("/:id", usersController.getOne);
+router.post("/register", usersController.register);
 
-router.post("/", usersController.createOne);
+router.post("/login", usersController.login);
+
+router.get("/me", usersController.validateToken);
+
+router.get("/:id", usersController.getOne);
 
 router.put("/:id", usersController.updateOne);
 

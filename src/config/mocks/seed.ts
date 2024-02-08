@@ -20,6 +20,8 @@ async function seedDatabase() {
     const user = await new User({
       name: faker.person.fullName(),
       username: faker.internet.displayName(),
+      email: faker.internet.email(),
+      password: faker.internet.password(),
       avatar: faker.internet.avatar(),
       banner: faker.image.url(),
       bio: faker.person.bio(),

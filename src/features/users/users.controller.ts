@@ -12,18 +12,9 @@ async function getAll(_: Request, res: Response, next: NextFunction) {
 
 async function getOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await usersService.getOne(req.params.id.substring(1)));
+    res.json(await usersService.getOne(req.params.id));
   } catch (err) {
     console.error(`Error while getting user`, err.message);
-    next(err);
-  }
-}
-
-async function createOne(req: Request, res: Response, next: NextFunction) {
-  try {
-    res.json(await usersService.createOne(req.body));
-  } catch (err) {
-    console.error(`Error while creating user`, err.message);
     next(err);
   }
 }
@@ -69,12 +60,58 @@ async function removeOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function register(req: Request, res: Response, next: NextFunction) {
+  const { name, username, email, password } = req.body;
+
+  try {
+    const result = await usersService.register({
+      name,
+      username,
+      email,
+      password,
+    });
+    res.json(result);
+  } catch (err) {
+    console.error(`Error while registering user`, err.message);
+    next(err);
+  }
+}
+
+async function login(req: Request, res: Response, next: NextFunction) {
+  const { username, password } = req.body;
+
+  try {
+    const result = await usersService.login({ username, password });
+
+    if (result.error) {
+      res.status(401).json({ message: result.error });
+    } else {
+      res.json(result);
+    }
+  } catch (err) {
+    console.error(`Error while authenticating user`, err);
+    next(err);
+  }
+}
+async function validateToken(req: Request, res: Response, next: NextFunction) {
+  const { userId } = res.locals;
+  try {
+    const result = await usersService.getOneById(userId);
+    res.json(result);
+  } catch (err) {
+    console.error(`Error while authenticating user`, err);
+    next(err);
+  }
+}
+
 export default {
   getAll,
   getOne,
-  createOne,
   updateOne,
   friendSuggestions,
   followOne,
   removeOne,
+  register,
+  login,
+  validateToken,
 };
