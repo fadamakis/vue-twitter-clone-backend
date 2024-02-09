@@ -38,9 +38,20 @@ async function createOne(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-async function updateOne(req: Request, res: Response, next: NextFunction) {
+async function likeOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await tweetsService.updateOne(req.params.id, req.body));
+    const { userId } = res.locals;
+    res.json(await tweetsService.likeOne({ tweetId: req.params.id, userId }));
+  } catch (err) {
+    console.error(`Error while updating tweet`, err.message);
+    next(err);
+  }
+}
+
+async function unLikeOne(req: Request, res: Response, next: NextFunction) {
+  try {
+    const { userId } = res.locals;
+    res.json(await tweetsService.unLikeOne({ tweetId: req.params.id, userId }));
   } catch (err) {
     console.error(`Error while updating tweet`, err.message);
     next(err);
@@ -70,7 +81,8 @@ export default {
   trends,
   getOne,
   createOne,
-  updateOne,
+  likeOne,
+  unLikeOne,
   remove,
   getFeed,
 };

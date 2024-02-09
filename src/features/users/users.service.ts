@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "./user.model";
+import notificationsService from "../notifications/notifications.service";
+import { NotificationTypes } from "../notifications/notification.model";
 
 async function getAll() {
   return User.find();
@@ -48,6 +50,13 @@ async function followOne(followerId, followingId) {
   await User.findByIdAndUpdate(followingId, {
     $addToSet: { followers: followerId },
   });
+
+  notificationsService.createOne({
+    type: NotificationTypes.Follow,
+    sender: followerId,
+    receiver: followingId,
+  });
+
   return { success: true };
 }
 
@@ -78,7 +87,7 @@ async function register(data) {
   const token = generateToken(newUser._id);
 
   return {
-    username: newUser.username,
+    user: newUser,
     token,
   };
 }

@@ -1,4 +1,6 @@
 import Tweet from "./tweet.model";
+import notificationsService from "../notifications/notifications.service";
+import { NotificationTypes } from "../notifications/notification.model";
 
 async function getFeed() {
   return await Tweet.find({}).populate("owner");
@@ -32,12 +34,31 @@ async function createOne(text) {
   return new Tweet({ text }).save();
 }
 
-async function updateOne(id, text) {
-  return Tweet.findByIdAndDelete(id, { text });
-}
-
 async function removeOne(id) {
   return Tweet.findByIdAndDelete(id);
+}
+
+async function likeOne({ tweetId, userId }) {
+  const tweet = await Tweet.findByIdAndUpdate(tweetId, {
+    $addToSet: { likes: userId },
+  });
+
+  await notificationsService.createOne({
+    type: NotificationTypes.Like,
+    sender: userId,
+    receiver: tweet.owner,
+    tweetId: tweet._id,
+  });
+
+  return { success: true };
+}
+
+async function unLikeOne({ tweetId, userId }) {
+  await Tweet.findByIdAndUpdate(tweetId, {
+    $pull: { likes: userId },
+  });
+
+  return { success: true };
 }
 
 export default {
@@ -45,7 +66,8 @@ export default {
   getTrends,
   getOne,
   createOne,
-  updateOne,
+  likeOne,
+  unLikeOne,
   removeOne,
   getFeed,
 };

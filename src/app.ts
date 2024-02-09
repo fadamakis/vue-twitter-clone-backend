@@ -19,9 +19,11 @@ connectDB();
 
 import { tweets } from "./features/tweets";
 import { users } from "./features/users";
+import { notifications } from "./features/notifications";
 
 app.use("/tweets", tweets);
 app.use("/users", users);
+app.use("/notifications", notifications);
 
 app.use(errorHandler);
 
