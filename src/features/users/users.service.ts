@@ -37,9 +37,11 @@ async function updateOne(id, data) {
   return User.findByIdAndUpdate(id, data);
 }
 
-async function getFriendSuggestions(limit = 5) {
-  // TODO exclude myself and already following
-  return User.find().limit(limit);
+async function getFriendSuggestions({ userId, limit = 5 }) {
+  return User.find({
+    _id: { $ne: userId },
+    followers: { $ne: userId },
+  }).limit(limit);
 }
 
 async function followOne(followerId, followingId) {
