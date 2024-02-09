@@ -20,8 +20,17 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
 }
 
 async function updateOne(req: Request, res: Response, next: NextFunction) {
+  const { name, bio, location, website } = req.body;
+
   try {
-    res.json(await usersService.updateOne(req.params.id, req.body));
+    res.json(
+      await usersService.updateOne(req.params.id, {
+        name,
+        bio,
+        location,
+        website,
+      })
+    );
   } catch (err) {
     console.error(`Error while updating user`, err.message);
     next(err);

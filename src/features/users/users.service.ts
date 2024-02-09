@@ -32,7 +32,7 @@ async function getOneById(_id) {
 }
 
 async function updateOne(id, data) {
-  return User.findByIdAndDelete(id, data);
+  return User.findByIdAndUpdate(id, data);
 }
 
 async function getFriendSuggestions(limit = 5) {
