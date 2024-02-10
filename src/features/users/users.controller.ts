@@ -120,6 +120,9 @@ async function validateToken(req: Request, res: Response, next: NextFunction) {
   const { userId } = res.locals;
   try {
     const result = await usersService.getOneById(userId);
+    if (!result) {
+      res.status(401).send({ message: "Invalid Token" });
+    }
     res.json(result);
   } catch (err) {
     console.error(`Error while authenticating user`, err);

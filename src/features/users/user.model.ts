@@ -6,11 +6,13 @@ const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
+    index: true,
   },
   username: {
     type: String,
     required: true,
     unique: true,
+    index: true,
   },
   email: {
     type: String,
@@ -53,6 +55,8 @@ const UserSchema = new mongoose.Schema({
     },
   ],
 });
+
+UserSchema.index({ name: "text", username: "text" });
 
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
