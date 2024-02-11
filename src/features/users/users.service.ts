@@ -18,9 +18,16 @@ async function getOne(username) {
     {
       $lookup: {
         from: "tweets",
-        localField: "_id",
-        foreignField: "owner",
         as: "tweets",
+        let: { user_id: "$_id" },
+        pipeline: [
+          {
+            $match: {
+              $expr: { $eq: ["$owner", "$$user_id"] },
+            },
+          },
+          { $sort: { date: -1 } },
+        ],
       },
     },
     {

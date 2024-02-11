@@ -31,7 +31,9 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
 
 async function createOne(req: Request, res: Response, next: NextFunction) {
   try {
-    res.json(await tweetsService.createOne(req.body.text));
+    const { userId } = res.locals;
+
+    res.json(await tweetsService.createOne({ text: req.body.text, userId }));
   } catch (err) {
     console.error(`Error while creating feed`, err.message);
     next(err);

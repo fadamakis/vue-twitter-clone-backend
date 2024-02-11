@@ -9,6 +9,7 @@ const TweetSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
   hashtags: {
     type: Array,

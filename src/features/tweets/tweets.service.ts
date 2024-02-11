@@ -3,11 +3,13 @@ import notificationsService from "../notifications/notifications.service";
 import { NotificationTypes } from "../notifications/notification.model";
 
 async function getFeed() {
-  return await Tweet.find({}).populate("owner");
+  return await Tweet.find({}).populate("owner").sort({ date: -1 });
 }
 
 async function search(term) {
-  return await Tweet.find({ $text: { $search: term } }).populate("owner");
+  return await Tweet.find({ $text: { $search: term } })
+    .populate("owner")
+    .sort({ date: -1 });
 }
 
 async function getTrends(limit) {
@@ -30,8 +32,8 @@ async function getOne(id) {
   return Tweet.findOne({ _id: id }).populate("owner");
 }
 
-async function createOne(text) {
-  return new Tweet({ text }).save();
+async function createOne({ text, userId }) {
+  return new Tweet({ body: text, owner: userId }).save();
 }
 
 async function removeOne(id) {
