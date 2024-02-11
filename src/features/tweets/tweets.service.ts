@@ -32,8 +32,8 @@ async function getOne(id) {
   return Tweet.findOne({ _id: id }).populate("owner");
 }
 
-async function createOne({ text, userId }) {
-  return new Tweet({ body: text, owner: userId }).save();
+async function createOne({ text, userId, media }) {
+  return new Tweet({ body: text, owner: userId, media }).save();
 }
 
 async function removeOne(id) {

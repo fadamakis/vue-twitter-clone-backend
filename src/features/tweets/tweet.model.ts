@@ -5,6 +5,9 @@ const TweetSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  media: {
+    type: String,
+  },
   date: { type: Date, default: Date.now },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

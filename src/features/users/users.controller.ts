@@ -38,7 +38,7 @@ async function updateOne(req: Request, res: Response, next: NextFunction) {
 }
 
 async function followOne(req: Request, res: Response, next: NextFunction) {
-  const { userId } = res.locals;
+  const { userId } = req;
 
   try {
     res.json(await usersService.followOne(userId, req.params.id));
@@ -49,7 +49,7 @@ async function followOne(req: Request, res: Response, next: NextFunction) {
 }
 
 async function unFollowOne(req: Request, res: Response, next: NextFunction) {
-  const { userId } = res.locals;
+  const { userId } = req;
 
   try {
     res.json(await usersService.unFollowOne(userId, req.params.id));
@@ -65,7 +65,7 @@ async function friendSuggestions(
   next: NextFunction
 ) {
   try {
-    const { userId } = res.locals;
+    const { userId } = req;
     const limit = parseInt(req.query.limit as string);
     res.json(await usersService.getFriendSuggestions({ userId, limit }));
   } catch (err) {
@@ -117,7 +117,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
   }
 }
 async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const { userId } = res.locals;
+  const { userId } = req;
   try {
     const result = await usersService.getOneById(userId);
     if (!result) {

@@ -31,9 +31,12 @@ async function getOne(req: Request, res: Response, next: NextFunction) {
 
 async function createOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const { userId } = res.locals;
+    const { userId } = req;
+    const media = req.file?.path;
 
-    res.json(await tweetsService.createOne({ text: req.body.text, userId }));
+    res.json(
+      await tweetsService.createOne({ text: req.body.text, userId, media })
+    );
   } catch (err) {
     console.error(`Error while creating feed`, err.message);
     next(err);
@@ -42,7 +45,7 @@ async function createOne(req: Request, res: Response, next: NextFunction) {
 
 async function likeOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const { userId } = res.locals;
+    const { userId } = req;
     res.json(await tweetsService.likeOne({ tweetId: req.params.id, userId }));
   } catch (err) {
     console.error(`Error while updating tweet`, err.message);
@@ -52,7 +55,7 @@ async function likeOne(req: Request, res: Response, next: NextFunction) {
 
 async function unLikeOne(req: Request, res: Response, next: NextFunction) {
   try {
-    const { userId } = res.locals;
+    const { userId } = req;
     res.json(await tweetsService.unLikeOne({ tweetId: req.params.id, userId }));
   } catch (err) {
     console.error(`Error while updating tweet`, err.message);

@@ -18,7 +18,7 @@ export default function auth(req, res, next) {
     if (!decoded.userId) {
       return res.status(400).json({ message: "Token structure unexpected" });
     }
-    res.locals.userId = decoded.userId;
+    req.userId = decoded.userId;
 
     next();
   } catch (e) {
