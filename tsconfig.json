@@ -5,11 +5,11 @@
     "moduleResolution": "node",
     "allowJs": true,
     "checkJs": true,
-    "outDir": "dist", // Compiled Output Directory
+    "outDir": "public",
     "rootDir": "",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "typeRoots" : ["./src/types", "./node_modules/@types"]
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": [
     "src/**/*.js", // Every js file inside src folder
