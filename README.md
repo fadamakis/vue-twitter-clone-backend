@@ -6,8 +6,6 @@
 
 - [Vue Twitter Clone - Backend](#vue-twitter-clone---backend)
   - [Table of Contents](#table-of-contents)
-  - [About](#about)
-  - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
   - [Usage](#usage)
@@ -17,13 +15,6 @@
   - [Authors](#authors)
   - [License](#license)
 
-## About
-
-Describe your project in more detail here. Include screenshots if applicable, key features, and why this project exists.
-
-## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 

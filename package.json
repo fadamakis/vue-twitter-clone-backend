@@ -2,7 +2,7 @@
   "name": "backend-express-internal",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon server -w src",
     "build": "tsc",

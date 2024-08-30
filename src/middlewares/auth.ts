@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 export default function auth(req, res, next) {
-  if (["/users/login", "/users/register"].includes(req.path)) {
+  if (["/users/login", "/users/register", "/"].includes(req.path)) {
     return next();
   }
 
