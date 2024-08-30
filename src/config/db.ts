@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 export default function connectDB() {
-  const url = process.env.MONGO_URL;
+  const url = process.env.MONGODB_URI;
 
   try {
     mongoose.connect(url);
