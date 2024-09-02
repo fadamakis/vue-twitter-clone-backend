@@ -22,7 +22,7 @@ async function seedDatabase() {
       username: faker.internet.displayName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
-      avatar: faker.internet.avatar(),
+      avatar: faker.image.avatarGitHub(),
       banner: faker.image.url(),
       bio: faker.person.bio(),
       location: faker.location.country(),
