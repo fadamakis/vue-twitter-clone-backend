@@ -33,7 +33,8 @@ async function getOne(id) {
 }
 
 async function createOne({ text, userId, media }) {
-  return new Tweet({ body: text, owner: userId, media }).save();
+  const tweet = await new Tweet({ body: text, owner: userId, media }).save();
+  return Tweet.findById(tweet._id).populate("owner");
 }
 
 async function removeOne(id) {
